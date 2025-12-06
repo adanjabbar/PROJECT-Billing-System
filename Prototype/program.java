@@ -90,8 +90,8 @@ public class program{
         System.out.println("Add product.....");
      }
   // ======================== SEARCH PRODUCT ==============================
-    public static void searchProduct() {
-        System.out.println("Search product.....");
+      public static void searchProduct() {
+     //   System.out.println("Search product.....");
      }
    
     // ======================== UPDATE PRODUCT ==============================

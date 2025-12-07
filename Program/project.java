@@ -102,7 +102,7 @@ public class project{
       public static void viewCategories() {
         System.out.println("\n-----------CATEGORIES LIST-----------");
         for(int i=0; i<categories.length;i++){
-            System.out.println((i+1) + ".----" +categories[i]+ "----"+ "\nDiscount: "+ (discount[i]*100) + "%" + "\nTax: " + (tax[i]*100) + "%");
+            System.out.println((i+1) + ".----" +categories[i]+ "----"+ "\n\tDiscount: "+ (discount[i]*100) + "%" + "\n\tTax: " + (tax[i]*100) + "%");
          
         }
      }  

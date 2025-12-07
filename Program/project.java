@@ -3,7 +3,7 @@ public class project{
     static Scanner sc = new Scanner(System.in);
 
     // Category data
-    static String [] categories = {"Fruits","Vegetables", "Grocery","Bakery items","Beverages"};
+    static String [] categories = {"Fruits","Vegetables","Bakery items","Beverages"};
     static double [] discount = {0.10,0.05,0.02,0.03,0.5};
     static double [] tax = {0.08,0.04,0.05,0.10,0.09};
     //Product data

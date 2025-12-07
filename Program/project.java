@@ -68,8 +68,9 @@ public class project{
             System.out.println("\n====== ADMIN MENU ======");
             System.out.println("1. View Categories");
             System.out.println("2. Add Product");
-            System.out.println("3. Search Product");
-            System.out.println("4. Update Product");
+            System.out.println("3. View all products");
+            System.out.println("4. Search Product");
+            System.out.println("5. Update Product");
             System.out.println("0. Return to Main Menu");
             System.out.print("Enter Choice: ");
 
@@ -82,9 +83,12 @@ public class project{
                 addProduct();
             } 
             else if (choice == 3) {
+                viewAllProducts();
+            }
+            else if (choice == 4){
                 searchProduct();
             } 
-            else if (choice == 4) {
+            else if (choice == 5) {
                 updateProduct();
             } 
             else if (choice == 0) {
@@ -128,6 +132,24 @@ public class project{
         System.out.println("Product Added Successfully!");
         productCount++;
     }
+    //--------------ViewAllProducts----------------
+    public static void viewAllProducts() {
+     System.out.println("-------All Products-------");
+    if (productCount == 0) {
+        System.out.println("No Products Added Yet!");
+        return;
+    }
+
+    System.out.println("\n------ PRODUCT LIST ------");
+
+    for (int i = 0; i < productCount; i++) {
+        System.out.println("\nProduct #" + (i + 1));
+        System.out.println("Name: " + productName[i]);
+        System.out.println("Price: " + productPrice[i]);
+        System.out.println("Quantity: " + productQty[i]);
+        System.out.println("Category: " + categories[productCategory[i]]);
+    }
+}
   // ======================== SEARCH PRODUCT ==============================
     public static void searchProduct() {
         System.out.println("\n--------Search Product--------");
@@ -218,8 +240,8 @@ public class project{
     //====================================================================
 
     public static void addToCart() {
-        
-        while (true) {
+
+    while (true) {
             System.out.println("\n----- Add Item to Cart -----");
             System.out.print("Enter Product Name: ");
             productName[productCount] = sc.next(); 

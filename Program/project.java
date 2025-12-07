@@ -3,12 +3,12 @@ public class project{
     static Scanner sc = new Scanner(System.in);
 
     // Category data
-    static String [] categories = {"Fruits","Vegetables", "Grocery","Beverages"};
-    static double [] discount = {0.10,0.05,0.02,0.03};
-    static double [] tax = {0.08,0.04,0.05,0.09};
+    static String [] categories = {"Fruits","Vegetables", "Grocery","Bakery items","Beverages"};
+    static double [] discount = {0.10,0.05,0.02,0.03,0.5};
+    static double [] tax = {0.08,0.04,0.05,0.10,0.09};
     //Product data
     static String [] productName = new String[50];
-    static String [] productprice = new String[50];
+    static double [] productPrice = new double[50];
     static int [] productQty = new int[50];
     static int [] productCategory = new int[50];
     static int productCount = 0;
@@ -99,20 +99,77 @@ public class project{
     
   //  ========================= View categories=========================
       public static void viewCategories() {
-        System.out.println("categories...");
+        System.out.println("\n-----------CATEGORIES LIST-----------");
+        for(int i=0; i<categories.length;i++){
+            System.out.println((i+1) + "." +categories[i]+ "\nDiscount: "+ (discount[i]*100) + "%" + "\nTax: " + (tax[i]*100) + "%");
+         
+        }
      }  
   // ======================== ADD PRODUCT ===============================
     public static void addProduct() { 
-        System.out.println("Add product.....");
-     }
+
+        System.out.println("\n-------Add Product-------");
+
+        System.out.print("Enter Product Name: ");
+        productName[productCount]= sc.next();
+
+        System.out.print("Enter Product price: ");
+        productPrice[productCount]= sc.nextDouble();
+
+        System.out.print("Enter Product Quantity: ");
+        productQty[productCount] = sc.nextInt();
+
+        System.out.println("\n-------Select Category-------");
+         for(int i= 0; i<categories.length; i++){
+            System.out.println((i+1) + "." + categories[i]);
+        }
+        productCategory[productCount]=sc.nextInt() - 1;
+        System.out.println("Product Added Successfully!");
+        productCount++;
+    }
   // ======================== SEARCH PRODUCT ==============================
-      public static void searchProduct() {
-     //   System.out.println("Search product.....");
+    public static void searchProduct() {
+        System.out.println("\n--------Search Product--------");
+        
+        System.out.print("Enter product name to search: ");
+        String name= sc.next();
+
+        for(int i=0; i<productCount; i++){
+            if(productName[i].equalsIgnoreCase(name)){
+                System.out.println("Product Found: ");
+                System.out.println("Name: " + productName[i]);
+                System.out.println("Price: " + productPrice[i]);
+                System.out.println("Quantity: " + productQty[i]);
+                System.out.println("Category: " + categories[productCategory[i]]);
+                return;
+            }
+        }
+        System.out.println("Product not found");
+
      }
    
     // ======================== UPDATE PRODUCT ==============================
     public static void updateProduct() {
-        System.out.println("Update product.......");
+        System.out.println("\n---------Update Product---------");
+        System.out.print("Enter Product Name to Update: ");
+        String name = sc.next();
+
+        for (int i = 0; i < productCount; i++) {
+
+            if (productName[i].equalsIgnoreCase(name)) {
+
+                System.out.print("Enter New Price: ");
+                productPrice[i] = sc.nextDouble();
+
+                System.out.print("Enter New Quantity: ");
+                productQty[i] = sc.nextInt();
+
+                System.out.println("Product Updated Successfully!");
+                return;
+            }
+        }
+
+        System.out.println("Product Not Found!");
     }
     //=============================================================
     //                  Cashier login

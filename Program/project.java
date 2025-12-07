@@ -4,8 +4,8 @@ public class project{
 
     // Category data
     static String [] categories = {"Fruits","Vegetables","Bakery items","Beverages"};
-    static double [] discount = {0.10,0.05,0.02,0.03,0.5};
-    static double [] tax = {0.08,0.04,0.05,0.10,0.09};
+    static double [] discount = {0.10,0.05,0.03,0.5};
+    static double [] tax = {0.08,0.04,0.05,0.10};
     //Product data
     static String [] productName = new String[50];
     static double [] productPrice = new double[50];
@@ -106,7 +106,7 @@ public class project{
       public static void viewCategories() {
         System.out.println("\n-----------CATEGORIES LIST-----------");
         for(int i=0; i<categories.length;i++){
-            System.out.println((i+1) + ".----" +categories[i]+ "----"+ "\nDiscount: "+ (discount[i]*100) + "%" + "\nTax: " + (tax[i]*100) + "%");
+            System.out.println((i+1) + ".----" +categories[i]+ "----"+ "\n\tDiscount: "+ (discount[i]*100) + "%" + "\n\tTax: " + (tax[i]*100) + "%");
          
         }
      }  

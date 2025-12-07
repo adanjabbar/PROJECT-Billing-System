@@ -1,6 +1,19 @@
 import java.util.Scanner;
 public class project{
     static Scanner sc = new Scanner(System.in);
+
+    // Category data
+    static String [] categories = {"Fruits","Vegetables", "Grocery","Beverages"};
+    static double [] discount = {0.10,0.05,0.02,0.03};
+    static double [] tax = {0.08,0.04,0.05,0.09};
+    //Product data
+    static String [] productName = new String[50];
+    static String [] productprice = new String[50];
+    static int [] productQty = new int[50];
+    static int [] productCategory = new int[50];
+    static int productCount = 0;
+
+
    public static void main(String[] args) {
 
     

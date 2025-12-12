@@ -66,12 +66,12 @@ public class project{
 
         while (true) {
             System.out.println("\n====== ADMIN MENU ======");
-            System.out.println("1. View Categories");
-            System.out.println("2. Add Product");
-            System.out.println("3. View all products");
-            System.out.println("4. Search Product");
-            System.out.println("5. Update Product");
-            System.out.println("0. Return to Main Menu");
+            System.out.println("Press 1 to View Categories");
+            System.out.println("Press 2 to Add Product");
+            System.out.println("Press 3 to View all products");
+            System.out.println("Press 4 to Search Product");
+            System.out.println("Press 5 to Update Product");
+            System.out.println("Press 0 Return to Main Menu");
             System.out.print("Enter Choice: ");
 
             int choice = sc.nextInt();
@@ -220,11 +220,11 @@ public class project{
 
         while (true) {
             System.out.println("\n========== CASHIER MENU ==========");
-            System.out.println("1. Add Items to Cart");
-            System.out.println("2. Apply Discount & Tax");
-            System.out.println("3. Generate Bill");
-            System.out.println("4. Payment Process");
-            System.out.println("0. Return to Main Menu");
+            System.out.println("Press 1 to Add Items to Cart");
+            System.out.println("Press 2 to Apply Discount & Tax");
+            System.out.println("Press 3 to Generate Bill");
+            System.out.println("Press 4 to Payment Process");
+            System.out.println("Press 0 to  Return to Main Menu");
             System.out.print("Enter choice: ");
             int choice = sc.nextInt();
 
@@ -340,7 +340,7 @@ public class project{
 
     System.out.println("TOTAL PAYABLE: " + total);
     System.out.println(".............................................................");
-    System.out.println("\nReturning to cashier menu.......\n");
+    
 }
  //                              PAYMENT PROCESS
     // =====================================================================

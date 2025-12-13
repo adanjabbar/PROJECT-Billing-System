@@ -453,11 +453,14 @@ public class project{
      public static void saveProductsToFile(){
         try{
             File file= new File("Products.txt");
-            if(!file.exists())
-             file.createNewFile();
-            FileWriter fw= new FileWriter(file,true);
-            
-                fw.write(productName[productCount-1] + "," + productPrice[productCount-1] + "," + productQty[productCount-1] + "," + productCategory[productCount-1] + "\n" );
+           /*  if(!file.exists())
+             file.createNewFile();*/
+            FileWriter fw= new FileWriter(file);
+            for(int i=0; i<productCount;i++){
+                if(productQty[i]==0) 
+                continue;
+                fw.write(productName[i] + "," + productPrice[i] + "," + productQty[i] + "," + (productCategory[i]+1) + "\n" );
+            }
                 fw.close();
         } catch (Exception e){
             System.out.println("File error");

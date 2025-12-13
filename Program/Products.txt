@@ -1,9 +1,5 @@
-Apple,200.0,30,0
-Banana,300.0,80,0
-Grapes,400.0,20,0
-Oranges,200.0,30,0
-Peach,150.0,30,0
-Potato,200.0,40,1
-Cake,300.0,200,2
-Broccoli,40.0,5,1
-Broccoli,40.0,0,1
+Apple,30.0,35,2
+Banana,30.0,40,2
+cake,2000.0,15,4
+potato,30.0,50,3
+broccoli,30.0,20,2

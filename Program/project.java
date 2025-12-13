@@ -51,11 +51,11 @@ public class project{
             else {
                 System.out.println("Invalid Option! kindly Try Again.");
             }
-        }catch(InputMismatchException e){
+            } catch (InputMismatchException e){
             System.out.println("Invalid input");
             sc.next();
+            }
         }
-     }
     }
    // ======================== ADMIN LOGIN ============================
     public static void adminLogin() {
@@ -112,10 +112,10 @@ public class project{
             else {
                 System.out.println("Invalid Option! Try Again.");
             }
-        }catch(InputMismatchException e){
+            } catch (InputMismatchException e){
             System.out.println("Invalid input");
             sc.next();
-        }
+            }
         }
     }
 
@@ -140,7 +140,7 @@ public class project{
         productName[productCount]= sc.next();
         //Price Validation
         while(true){
-         try{
+        try{
             System.out.print("Enter Product price: ");
             double price = sc.nextDouble();
             if(price>0){
@@ -149,9 +149,9 @@ public class project{
             }else{
                 System.out.println("Invalid price");
             }
-         }catch(InputMismatchException e){
+        }catch(InputMismatchException e){
             System.out.println("Invalid input");
-            sc.next();
+            sc.nextLine();
          }
         }
         //Quantity validation
@@ -167,7 +167,7 @@ public class project{
                }
             }catch(InputMismatchException e){
                 System.out.println("Invalid input");
-                sc.next();
+                sc.nextLine();
             }
         }
         //Category selection with validation
@@ -182,10 +182,10 @@ public class project{
          }else{
             System.out.println("Invalid Category");
          }
-        } catch (InputMismatchException e){
+         } catch (InputMismatchException e){
             System.out.println("Invalid input");
-            sc.next();
-        }
+            sc.nextLine();
+         }
        }
         productCount++;
         saveProductsToFile();
@@ -214,7 +214,7 @@ public class project{
         System.out.println("\n--------Search Product--------");
         
         System.out.print("Enter product name to search: ");
-        String name= sc.next();
+        String name= sc.nextLine();
 
         for(int i=0; i<productCount; i++){
             if(productName[i].equalsIgnoreCase(name)){
@@ -234,14 +234,14 @@ public class project{
     public static void updateProduct() {
         System.out.println("\n---------Update Product---------");
         System.out.print("Enter Product Name to Update: ");
-        String name = sc.next();
+        String name = sc.nextLine();
 
         for (int i = 0; i < productCount; i++) {
 
         if (productName[i].equalsIgnoreCase(name)) {
          // Update price
         while (true) {
-             try {
+            try {
              System.out.print("Enter New Price: ");
              double price = sc.nextDouble();
              if (price > 0) {
@@ -251,7 +251,7 @@ public class project{
              System.out.println("Invalid price");}
             } catch (InputMismatchException e) {
              System.out.println("Invalid input");
-             sc.next();
+             sc.nextLine();
             }
         }
          // Update quantity
@@ -266,7 +266,7 @@ public class project{
               System.out.println("Invalid quantity");}
             } catch (InputMismatchException e) {
               System.out.println("Invalid input");
-              sc.next();
+              sc.nextLine();
             }
         }
 
@@ -286,9 +286,9 @@ public class project{
         System.out.println("\t.....Cashier login panel.....\t\n");
 
         System.out.print("Enter Cashier Username: ");
-        user = sc.next();
+        user = sc.nextLine();
         System.out.print("Enter Cashier Password: ");
-        pass = sc.next();
+        pass = sc.nextLine();
 
         if (user.equals("cashier") && pass.equals("456")) {
             cashierMenu();
@@ -303,7 +303,7 @@ public class project{
     public static void cashierMenu() {
 
         while (true) {
-          try{
+           try{
             System.out.println("\n========== CASHIER MENU ==========");
             System.out.println("> Press 1 to Add Items to Cart");
             System.out.println("> Press 2 to Apply Discount & Tax");
@@ -319,9 +319,9 @@ public class project{
             else if (choice == 4) payment();
             else if (choice == 0) break;
             else System.out.println("Invalid option!");
-          }catch(InputMismatchException e){
+           }catch(InputMismatchException e){
             System.out.println("Invalid option");
-            sc.next();
+            sc.nextLine();
           }
         }
       }
@@ -358,7 +358,7 @@ public class project{
                     System.out.println("Invalid quantity");
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input");
-                sc.next();
+                sc.nextLine();
             }
         }
 
@@ -432,18 +432,20 @@ public class project{
             System.out.println("\nReturning to cashier menu.......\n");
             } catch (InputMismatchException e){
                 System.out.println("invalid input");
-                sc.next();
+                sc.nextLine();
             }    
         }
      }
      //File save
      public static void saveProductsToFile(){
         try{
-            FileWriter fw = new FileWriter("Products.txt");
-            for(int i=0;i<productCount;i++){
-                fw.write(productName[i] + "," + productPrice[i] + "," + productQty + "," + productCategory + "\n" );
+            File file= new File("Products.txt");
+            if(!file.exists())
+             file.createNewFile();
+            FileWriter fw= new FileWriter(file,true);
+            
+                fw.write(productName[productCount-1] + "," + productPrice[productCount-1] + "," + productQty[productCount-1] + "," + productCategory[productCount-1] + "\n" );
                 fw.close();
-            } 
         } catch (Exception e){
             System.out.println("File error");
         }
@@ -451,11 +453,11 @@ public class project{
      //File load
      public static void loadProductsFromFile() {
         try {
-            File f = new File("products.txt");
-            if (!f.exists())
+            File file = new File("products.txt");
+            if (!file.exists())
                 return;
 
-            Scanner fs = new Scanner(f);
+            Scanner fs = new Scanner(file);
             while (fs.hasNextLine()) {
                 String[] d = fs.nextLine().split(",");
                 productName[productCount] = d[0];

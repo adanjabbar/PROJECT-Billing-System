@@ -226,7 +226,7 @@ public class project{
 
         while (true) {
             System.out.println("\n========== CASHIER MENU ==========");
-            System.out.println("> 1Press 1 to Add Items to Cart");
+            System.out.println("> Press 1 to Add Items to Cart");
             System.out.println("> Press 2 to Apply Discount & Tax");
             System.out.println("> Press 3 to Generate Bill");
             System.out.println("> Press 4 to Payment Process");

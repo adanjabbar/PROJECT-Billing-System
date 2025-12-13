@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 public class project{
     static Scanner sc = new Scanner(System.in);
@@ -12,12 +13,16 @@ public class project{
     static int [] productQty = new int[50];
     static int [] productCategory = new int[50];
     static int productCount = 0;
-    static double price, total;
 
+    //cashier data
+    static String[] cName = new String[50];
+    static double[] cPrice = new double[50];
+    static int[] cQty = new int[50];
+    static int[] cCat = new int[50];
+    static int cartCount = 0;
+    static double total;
 
    public static void main(String[] args) {
-
-    
 
         while (true) {
             System.out.println("\t.....Welcome to Grocery Billing System.....\t");
@@ -50,7 +55,7 @@ public class project{
     public static void adminLogin() {
         System.out.println("\t.....Admin login panel.....\t\n");
         
-        System.out.print("\nEnter Admin Username: ");
+        System.out.print("Enter Admin Username: ");
         String u = sc.next();
 
         System.out.print("Enter Admin Password: ");
@@ -66,12 +71,12 @@ public class project{
 
         while (true) {
             System.out.println("\n====== ADMIN MENU ======");
-            System.out.println("Press 1 to View Categories");
-            System.out.println("Press 2 to Add Product");
-            System.out.println("Press 3 to View all products");
-            System.out.println("Press 4 to Search Product");
-            System.out.println("Press 5 to Update Product");
-            System.out.println("Press 0 Return to Main Menu");
+            System.out.println("> Press 1 to View Categories");
+            System.out.println("> Press 2 to Add Product");
+            System.out.println("> Press 3 to View all products");
+            System.out.println("> Press 4 to Search Product");
+            System.out.println("> Press 5 to Update Product");
+            System.out.println("> Press 0 Return to Main Menu");
             System.out.print("Enter Choice: ");
 
             int choice = sc.nextInt();
@@ -126,7 +131,7 @@ public class project{
 
         System.out.println("\n-------Select Category-------");
          for(int i= 0; i<categories.length; i++){
-            System.out.println((i+1) + "." + categories[i]);
+            System.out.println((i+1)+". Press "+(i+1) + " for " + categories[i]);
         }
         productCategory[productCount]=sc.nextInt() - 1;
         System.out.println("Product Added Successfully!");
@@ -220,11 +225,11 @@ public class project{
 
         while (true) {
             System.out.println("\n========== CASHIER MENU ==========");
-            System.out.println("Press 1 to Add Items to Cart");
-            System.out.println("Press 2 to Apply Discount & Tax");
-            System.out.println("Press 3 to Generate Bill");
-            System.out.println("Press 4 to Payment Process");
-            System.out.println("Press 0 to  Return to Main Menu");
+            System.out.println("> 1Press 1 to Add Items to Cart");
+            System.out.println("> Press 2 to Apply Discount & Tax");
+            System.out.println("> Press 3 to Generate Bill");
+            System.out.println("> Press 4 to Payment Process");
+            System.out.println("> Press 0 to  Return to Main Menu");
             System.out.print("Enter choice: ");
             int choice = sc.nextInt();
 
@@ -241,113 +246,83 @@ public class project{
 
     public static void addToCart() {
 
-    while (true) {
-            System.out.println("\n----- Add Item to Cart -----");
-            System.out.print("Enter Product Name: ");
-            productName[productCount] = sc.next(); 
-            
-            System.out.print("Enter Product Category (by name): ");
-            String catName = sc.next();
-            int catIndex = -1;
-            for (int i = 0; i < categories.length; i++) {
-                if (categories[i].equalsIgnoreCase(catName)) {
-                    catIndex = i;
-                    break;
-                }
+
+        System.out.print("Product name: ");
+        String name = sc.next();
+
+        int index = -1;
+        for (int i = 0; i < productCount; i++) {
+            if (productName[i].equalsIgnoreCase(name)) {
+                index = i;
+                break;
             }
-            if (catIndex == -1) {
-                System.out.println("Invalid category! Item not added.");
-                continue;
-            }
-            productCategory[productCount] = catIndex;
-
-            System.out.print("Enter Product Price: ");
-            productPrice[productCount] = sc.nextDouble();
-
-            System.out.print("Enter Quantity: ");
-            productQty[productCount] = sc.nextInt();
-
-            productCount++;
-
-            System.out.print("Do you want to add another item? (yes/no): ");
-            String ans = sc.next();
-            if (!ans.equalsIgnoreCase("yes")) break;
         }
-        System.out.println("\nReturning to cashier menu.......\n");
-    }
 
+        if (index == -1) {
+            System.out.println("Product not found");
+            return;
+        }
+
+        int qty;
+        while (true) {
+            try {
+                System.out.print("Quantity: ");
+                qty = sc.nextInt();
+                if (qty > 0 && qty <= productQty[index])
+                    break;
+                else
+                    System.out.println("Invalid quantity");
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input");
+                sc.next();
+            }
+        }
+
+        cName[cartCount] = productName[index];
+        cPrice[cartCount] = productPrice[index];
+        cQty[cartCount] = qty;
+        cCat[cartCount] = productCategory[index];
+        cartCount++;
+
+        productQty[index] -= qty;
+        
+
+        System.out.println("Added to cart");
+    }
+   
  //                          APPLY DISCOUNT & TAX
     // =====================================================================
     
     public static void applyDiscountTax() {
-       System.out.println("\n----- Applying Discount & Tax -----");
-        if (productCount == 0) {
-        System.out.println("No items in cart to apply discount/tax.");
-        System.out.println("\nReturning to cashier menu.......\n");
-        return;
+
+        total = 0;
+        double amount=0, dis=0, tx=0;
+
+        for (int i = 0; i < cartCount; i++) {
+            amount = cPrice[i] * cQty[i];
+            dis = amount * discount[cCat[i]];
+            tx = amount * tax[cCat[i]];
+            total += amount - dis + tx;
+        }
+        System.out.println("\nOriginal amount: "+ amount +" | Discount: "+ dis +" | Tax: "+ tx +"....");
+        System.out.println("Total: " + total);
     }
-
-    total = 0;
-    
-    for (int i = 0; i < productCount; i++) {
-        int catIndex = productCategory[i];
-        double pricePerItem = productPrice[i];
-        double amount = pricePerItem * productQty[i];
-        
-        double discountAmount = amount * discount[catIndex];
-        double taxAmount = amount * tax[catIndex];
-        double finalPrice = amount - discountAmount + taxAmount;
-
-        total += finalPrice;
-
-        System.out.println("\n" + productName[i] + " - Qty: " + productQty[i] + ", Original: " + amount +
-                ", Discount: "+ discountAmount + ", Tax: " + taxAmount +", Final: " + finalPrice);
-    }
-
-    System.out.println("Total Bill after Discount & Tax: " + total);
-    System.out.println("\nReturning to cashier menu.......\n");
-}
    
 
 //                              GENERATE BILL
     // =====================================================================
 
     public static void generateBill() {
-        System.out.println("\n----- BILL -----");
-        if (productCount == 0) {
-        System.out.println("No items in cart to generate bill.");
-        System.out.println("\nReturning to cashier menu.......\n");
-        return;
+       System.out.println("...\tBill\t...");
+       
+       System.out.println("Payable: " + total);
     }
-
-    total = 0;
-    
-    for (int i = 0; i < productCount; i++) {
-        int catIndex = productCategory[i];
-        double pricePerItem = productPrice[i];
-        double amount = pricePerItem * productQty[i];
-        
-        double discountAmount = amount * discount[catIndex];
-        double taxAmount = amount * tax[catIndex];
-        double finalPrice = amount - discountAmount + taxAmount;
-
-        total += finalPrice;
-
-        System.out.println("\n" + productName[i] + " | " + productQty[i] + " x " + pricePerItem +
-                " = " + amount + " | Discount: " + discountAmount +
-                " | Tax: " + taxAmount + " | Final: " + finalPrice);
-    }
-
-    System.out.println("TOTAL PAYABLE: " + total);
-    System.out.println(".............................................................");
-    
-}
  //                              PAYMENT PROCESS
     // =====================================================================
 
     public static void payment() {
         System.out.println("\n Payment Process.......");
-        if (productCount == 0) {
+        if (cartCount == 0) {
             System.out.println("\nNo items in cart for payment.");
             System.out.println("\nReturning to cashier menu.......\n");
             return;
@@ -360,7 +335,7 @@ public class project{
         if (paid >= total) {
             System.out.println("\nPayment successful! Change: " + (paid - total));
             System.out.println("....................................................");
-            productCount = 0;
+            cartCount = 0;
         } else {
             System.out.println("\nInsufficient payment. Transaction failed.");
         }

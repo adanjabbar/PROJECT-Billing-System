@@ -1,6 +1,5 @@
 import java.io.*;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 public class project{
     static Scanner sc = new Scanner(System.in);
 
@@ -24,12 +23,14 @@ public class project{
     static double total;
 
    public static void main(String[] args) {
+    loadProductsFromFile();
 
         while (true) {
+            
             System.out.println("\t.....Welcome to Grocery Billing System.....\t");
             System.out.println("\n\t============== MAIN MENU ======\t");
             System.out.println("\t------Please autenticate to Continue-------\t");
-   
+            try{
             System.out.println("Press 1 to proceed as Admin.");
             System.out.println("Press 2 to proceed as Cashier.");
             System.out.println("Press 0 to exit System.");
@@ -50,7 +51,11 @@ public class project{
             else {
                 System.out.println("Invalid Option! kindly Try Again.");
             }
+        }catch(InputMismatchException e){
+            System.out.println("Invalid input");
+            sc.next();
         }
+     }
     }
    // ======================== ADMIN LOGIN ============================
     public static void adminLogin() {
@@ -64,13 +69,17 @@ public class project{
 
         if (u.equals("admin") && p.equals("123")) {
             System.out.println("Admin Login Successful!");
-            adminMenu();
+            adminMenu();}
+        else{
+            System.out.println("Wrong login ");
+        }
         } 
-    }
+    
 // ======================== ADMIN MENU =============================
     public static void adminMenu() {
 
         while (true) {
+            try{
             System.out.println("\n====== ADMIN MENU ======");
             System.out.println("> Press 1 to View Categories");
             System.out.println("> Press 2 to Add Product");
@@ -103,6 +112,10 @@ public class project{
             else {
                 System.out.println("Invalid Option! Try Again.");
             }
+        }catch(InputMismatchException e){
+            System.out.println("Invalid input");
+            sc.next();
+        }
         }
     }
 
@@ -110,7 +123,9 @@ public class project{
     
   //  ========================= View categories=========================
       public static void viewCategories() {
+
         System.out.println("\n-----------CATEGORIES LIST-----------");
+        
         for(int i=0; i<categories.length;i++){
             System.out.println((i+1) + ".----" +categories[i]+ "----"+ "\n\tDiscount: "+ (discount[i]*100) + "%" + "\n\tTax: " + (tax[i]*100) + "%");
          
@@ -123,20 +138,58 @@ public class project{
 
         System.out.print("Enter Product Name: ");
         productName[productCount]= sc.next();
-
-        System.out.print("Enter Product price: ");
-        productPrice[productCount]= sc.nextDouble();
-
-        System.out.print("Enter Product Quantity: ");
-        productQty[productCount] = sc.nextInt();
-
-        System.out.println("\n-------Select Category-------");
-         for(int i= 0; i<categories.length; i++){
-            System.out.println((i+1)+". Press "+(i+1) + " for " + categories[i]);
+        //Price Validation
+        while(true){
+         try{
+            System.out.print("Enter Product price: ");
+            double price = sc.nextDouble();
+            if(price>0){
+                productPrice[productCount]=price;
+                break;
+            }else{
+                System.out.println("Invalid price");
+            }
+         }catch(InputMismatchException e){
+            System.out.println("Invalid input");
+            sc.next();
+         }
         }
-        productCategory[productCount]=sc.nextInt() - 1;
-        System.out.println("Product Added Successfully!");
+        //Quantity validation
+        while(true){
+            try{
+               System.out.print("Enter Product Quantity: ");
+               int q=sc.nextInt();
+               if(q>=0){
+               productQty[productCount] = q;
+               break;
+               } else{
+                System.out.println("Invalid Quantity");
+               }
+            }catch(InputMismatchException e){
+                System.out.println("Invalid input");
+                sc.next();
+            }
+        }
+        //Category selection with validation
+        while(true){
+        System.out.println("\n-------Select Category-------");
+         try{
+            viewCategories();
+            int c=sc.nextInt();
+         if(c >= 1 && c<= categories.length){
+           productCategory[productCount]=c - 1;
+           break;
+         }else{
+            System.out.println("Invalid Category");
+         }
+        } catch (InputMismatchException e){
+            System.out.println("Invalid input");
+            sc.next();
+        }
+       }
         productCount++;
+        saveProductsToFile();
+        System.out.println("Product Added");
     }
     //--------------ViewAllProducts----------------
     public static void viewAllProducts() {
@@ -185,21 +238,46 @@ public class project{
 
         for (int i = 0; i < productCount; i++) {
 
-            if (productName[i].equalsIgnoreCase(name)) {
-
-                System.out.print("Enter New Price: ");
-                productPrice[i] = sc.nextDouble();
-
-                System.out.print("Enter New Quantity: ");
-                productQty[i] = sc.nextInt();
-
-                System.out.println("Product Updated Successfully!");
-                return;
+        if (productName[i].equalsIgnoreCase(name)) {
+         // Update price
+        while (true) {
+             try {
+             System.out.print("Enter New Price: ");
+             double price = sc.nextDouble();
+             if (price > 0) {
+              productPrice[i] = price;
+              break;
+             } else{
+             System.out.println("Invalid price");}
+            } catch (InputMismatchException e) {
+             System.out.println("Invalid input");
+             sc.next();
+            }
+        }
+         // Update quantity
+         while (true) {
+            try {
+             System.out.print("Enter New Quantity: ");
+             int q = sc.nextInt();
+             if (q >= 0) {
+             productQty[i] = q;
+             break;
+             } else{
+              System.out.println("Invalid quantity");}
+            } catch (InputMismatchException e) {
+              System.out.println("Invalid input");
+              sc.next();
             }
         }
 
-        System.out.println("Product Not Found!");
+            saveProductsToFile();
+            System.out.println("Product updated");
+             return;
+             }
+         }
+        System.out.println("Product not found");
     }
+               
     //=============================================================
     //                  Cashier login
     //=============================================================
@@ -225,6 +303,7 @@ public class project{
     public static void cashierMenu() {
 
         while (true) {
+          try{
             System.out.println("\n========== CASHIER MENU ==========");
             System.out.println("> Press 1 to Add Items to Cart");
             System.out.println("> Press 2 to Apply Discount & Tax");
@@ -240,8 +319,12 @@ public class project{
             else if (choice == 4) payment();
             else if (choice == 0) break;
             else System.out.println("Invalid option!");
+          }catch(InputMismatchException e){
+            System.out.println("Invalid option");
+            sc.next();
+          }
         }
-    }
+      }
     //                           Add to cart
     //====================================================================
 
@@ -286,6 +369,7 @@ public class project{
         cartCount++;
 
         productQty[index] -= qty;
+        saveProductsToFile();
         
 
         System.out.println("Added to cart");
@@ -315,6 +399,7 @@ public class project{
 
     public static void generateBill() {
        System.out.println("...\tBill\t...");
+       applyDiscountTax();
        
        System.out.println("Payable: " + total);
     }
@@ -330,16 +415,58 @@ public class project{
         }
 
         generateBill();
-        System.out.print("Enter amount paid: ");
-        double paid = sc.nextDouble();
+        while(true){
+            try{
+             System.out.print("Enter amount paid: ");
+             double paid = sc.nextDouble();
 
-        if (paid >= total) {
-            System.out.println("\nPayment successful! Change: " + (paid - total));
-            System.out.println("....................................................");
-            cartCount = 0;
-        } else {
+             if (paid >= total) {
+             System.out.println("\nPayment successful! Change: " + (paid - total));
+             System.out.println("....................................................");
+             cartCount = 0;
+             total=0;
+             break;
+             } else {
             System.out.println("\nInsufficient payment. Transaction failed.");
+             }
+            System.out.println("\nReturning to cashier menu.......\n");
+            } catch (InputMismatchException e){
+                System.out.println("invalid input");
+                sc.next();
+            }    
         }
-        System.out.println("\nReturning to cashier menu.......\n");
+     }
+     //File save
+     public static void saveProductsToFile(){
+        try{
+            FileWriter fw = new FileWriter("Products.txt");
+            for(int i=0;i<productCount;i++){
+                fw.write(productName[i] + "," + productPrice[i] + "," + productQty + "," + productCategory + "\n" );
+                fw.close();
+            } 
+        } catch (Exception e){
+            System.out.println("File error");
+        }
+     }
+     //File load
+     public static void loadProductsFromFile() {
+        try {
+            File f = new File("products.txt");
+            if (!f.exists())
+                return;
+
+            Scanner fs = new Scanner(f);
+            while (fs.hasNextLine()) {
+                String[] d = fs.nextLine().split(",");
+                productName[productCount] = d[0];
+                productPrice[productCount] = Double.parseDouble(d[1]);
+                productQty[productCount] = Integer.parseInt(d[2]);
+                productCategory[productCount] = Integer.parseInt(d[3]);
+                productCount++;
+            }
+            fs.close();
+        } catch (Exception e) {
+            System.out.println("File load error");
+        }
     }
 }

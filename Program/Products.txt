@@ -6,3 +6,4 @@ Peach,150.0,30,0
 Potato,200.0,40,1
 Cake,300.0,200,2
 Broccoli,40.0,5,1
+Broccoli,40.0,0,1

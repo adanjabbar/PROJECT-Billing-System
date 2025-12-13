@@ -5,7 +5,7 @@ public class project{
 
     // Category data
     static String [] categories = {"Fruits","Vegetables","Bakery items","Beverages"};
-    static double [] discount = {0.10,0.05,0.03,0.5};
+    static double [] discount = {0.10,0.05,0.03,0.05};
     static double [] tax = {0.08,0.04,0.05,0.10};
     //Product data
     static String [] productName = new String[50];
@@ -37,6 +37,7 @@ public class project{
            
             System.out.print("Enter Choice: ");
             int choice = sc.nextInt();
+            sc.nextLine();
 
             if (choice == 1) {
                 adminLogin();
@@ -90,6 +91,7 @@ public class project{
             System.out.print("Enter Choice: ");
 
             int choice = sc.nextInt();
+            sc.nextLine();
 
             if (choice == 1) {
                 viewCategories();
@@ -312,6 +314,7 @@ public class project{
             System.out.println("> Press 0 to  Return to Main Menu");
             System.out.print("Enter choice: ");
             int choice = sc.nextInt();
+            sc.nextLine();
 
             if (choice == 1) addToCart();
             else if (choice == 2) applyDiscountTax();
@@ -381,16 +384,19 @@ public class project{
     public static void applyDiscountTax() {
 
         total = 0;
-        double amount=0, dis=0, tx=0;
+        double totalAmount=0, totalDiscount=0, totalTax=0;
 
         for (int i = 0; i < cartCount; i++) {
-            amount = cPrice[i] * cQty[i];
-            dis = amount * discount[cCat[i]];
-            tx = amount * tax[cCat[i]];
+            double amount = cPrice[i] * cQty[i];
+            double dis = amount * discount[cCat[i]];
+            double tx = amount * tax[cCat[i]];
+            totalAmount+= amount;
+            totalDiscount += dis;
+            totalTax += tx;
             total += amount - dis + tx;
         }
-        System.out.println("\nOriginal amount: "+ amount +" | Discount: "+ dis +" | Tax: "+ tx +"....");
-        System.out.println("Total: " + total);
+        System.out.println("\nOriginal amount: "+ totalAmount +" | Discount: "+ totalDiscount +" | Tax: "+ totalTax +"....");
+        System.out.println("Total Payable: " + total);
     }
    
 
@@ -423,13 +429,20 @@ public class project{
              if (paid >= total) {
              System.out.println("\nPayment successful! Change: " + (paid - total));
              System.out.println("....................................................");
+        // reset cart arrays
+            for(int i=0; i<cartCount; i++){
+                cName[i]=null;
+                cPrice[i]=0;
+                cQty[i]=0;
+                cCat[i]=0;
+            }
              cartCount = 0;
              total=0;
              break;
              } else {
             System.out.println("\nInsufficient payment. Transaction failed.");
              }
-            System.out.println("\nReturning to cashier menu.......\n");
+        
             } catch (InputMismatchException e){
                 System.out.println("invalid input");
                 sc.nextLine();

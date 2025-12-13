@@ -1,0 +1,6 @@
+Pineapple,30.0,40,1
+Strawberry,20.0,100,1
+Spanich,20.0,400,2
+Bread,100.0,3,3
+Muffin,300.0,30,3
+soft,50.0,40,4

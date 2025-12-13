@@ -139,7 +139,7 @@ public class project{
         System.out.println("\n-------Add Product-------");
 
         System.out.print("Enter Product Name: ");
-        productName[productCount]= sc.next();
+        productName[productCount]= sc.nextLine();
         //Price Validation
         while(true){
         try{

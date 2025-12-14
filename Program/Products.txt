@@ -5,3 +5,12 @@ Onions,70.0,100,1
 Watermelon,150.0,49,0
 Burger Bun,30.0,40,2
 Flour,150.0,28,2
+Avocado,280.0,50,0
+Cherry,60.0,70,0
+Kiwi,180.0,37,0
+Lady Finger,70.0,50,1
+Capsicum,40.0,40,1
+Radish,30.0,50,1
+Spring Onion,50.0,30,1
+Donut,90.0,40,2
+Cup Cake,80.0,50,2

@@ -468,7 +468,7 @@ public class project{
      //File load
      public static void loadProductsFromFile() {
         try {
-            File file = new File("products.txt");
+            File file = new File("Products.txt");
             if (!file.exists())
                 return;
 

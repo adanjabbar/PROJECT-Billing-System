@@ -14,3 +14,29 @@ Radish,30.0,50,1
 Spring Onion,50.0,30,1
 Donut,90.0,40,2
 Cup Cake,80.0,50,2
+Chicken Patties,180.0,50,2
+Chocolate Cake,200.0,40,2
+Chroissant,140.0,30,2
+Cheese Roll,100.0,40,2
+Puff Pastry,120.0,60,2
+Sausage Roll,160.0,20,2
+Brownie,170.0,30,2
+Vanilla Cake(1 pound),1500.0,30,2
+Mint(Bunch),30.0,40,1
+Cucumber,30.0,60,1
+Brinjal,60.0,60,1
+Red Cherry,70.0,40,1
+Blueberry(Pack),450.0,30,0
+Pear,50.0,60,0
+Pomegranate,180.0,70,0
+Raspberry(Pack),500.0,100,0
+Japanese Melon,1200.0,20,0
+Pineapple,300.0,20,0
+Cold Drink(1 litre),100.0,40,3
+Soda,100.0,50,3
+Flavored Milk,120.0,80,3
+Tea,50.0,50,3
+Green tea,60.0,40,3
+Cappuccino,100.0,50,3
+latte,150.0,40,3
+Black Coffee,50.0,30,3

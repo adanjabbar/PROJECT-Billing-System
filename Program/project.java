@@ -459,7 +459,7 @@ public class project{
             for(int i=0; i<productCount;i++){
                 if(productQty[i]==0) 
                 continue;
-                fw.write(productName[i] + "," + productPrice[i] + "," + productQty[i] + "," + (productCategory[i]+1) + "\n" );
+                fw.write(productName[i] + "," + productPrice[i] + "," + productQty[i] + "," + productCategory[i] + "\n" );
             }
                 fw.close();
         } catch (Exception e){

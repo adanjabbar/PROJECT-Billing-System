@@ -1,0 +1,7 @@
+Sparkling water,100.0,50,3
+Carbonated drinks,200.0,80,3
+Dragon Fruit,100.0,20,0
+Onions,70.0,100,1
+Watermelon,150.0,49,0
+Burger Bun,30.0,40,2
+Flour,150.0,28,2

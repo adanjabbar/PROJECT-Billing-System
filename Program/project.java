@@ -335,7 +335,7 @@ public class project{
 
 
         System.out.print("Product name: ");
-        String name = sc.next();
+        String name = sc.nextLine();
 
         int index = -1;
         for (int i = 0; i < productCount; i++) {
@@ -396,7 +396,7 @@ public class project{
             total += amount - dis + tx;
         }
         System.out.println("\nOriginal amount: "+ totalAmount +" | Discount: "+ totalDiscount +" | Tax: "+ totalTax +"....");
-        System.out.println("Total Payable: " + total);
+        System.out.println("Total Payable: " + total +" Rs.");
     }
    
 
@@ -404,10 +404,9 @@ public class project{
     // =====================================================================
 
     public static void generateBill() {
+       System.out.println("\n..............................."); 
        System.out.println("...\tBill\t...");
        applyDiscountTax();
-       
-       System.out.println("Payable: " + total);
     }
  //                              PAYMENT PROCESS
     // =====================================================================
@@ -427,7 +426,7 @@ public class project{
              double paid = sc.nextDouble();
 
              if (paid >= total) {
-             System.out.println("\nPayment successful! Change: " + (paid - total));
+             System.out.println("\nPayment successful! Change: " + (paid - total) +" Rs.");
              System.out.println("....................................................");
         // reset cart arrays
             for(int i=0; i<cartCount; i++){
